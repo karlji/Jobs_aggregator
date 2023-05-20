@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>Jobs</h1>
+
+    <ul>
+        {% for x in jobs_total %}
+        <li>{{ x.title }} {{ x.company }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
