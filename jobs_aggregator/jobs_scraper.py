@@ -4,11 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import date, timedelta
 from support import parse_czech_date
-import django
-import os
-django.setup()
-os.environ['DJANGO_SETTINGS_MODULE'] = 'jobs_aggregator.settings'
-
+from jobs_dashboard.config import * 
 from jobs_dashboard.models import Job
 
 
@@ -104,6 +100,7 @@ def process_data(): #Splits data into variables and formats it.
                 salary = salary_data,
                 published_date = published
             )
+            job.save()
     except Exception as e:
         print(f"An error occurred while processing data: {str(e)}")
 

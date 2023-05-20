@@ -5,11 +5,24 @@
 
     <h1>Jobs</h1>
 
-    <ul>
-        {% for x in jobs_total %}
-        <li>{{ x.title }} {{ x.company }}</li>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Salary</th>
+            <th>Company</th>
+            <th>Published</th>
+            <th>URL</th>
+        </tr>
+        {% for job in jobs_total %}
+        <tr>
+            <td>{{ job.title }}</td>
+            <td>{{ job.salary }}</td>
+            <td>{{ job.company }}</td>
+            <td>{{ job.published_date }}</td>
+            <td><a href="{{ job.link }}">URL</a></td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
 
 </body>
 
