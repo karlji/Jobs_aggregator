@@ -7,20 +7,9 @@ from support import parse_czech_date
 from jobs_dashboard.config import * 
 from jobs_dashboard.models import Job
 
-
-#jobs = []
-
-
-# class Job:
-#     def __init__(self, title, company, link, salary, published):
-#         self.title = title
-#         self.company = company
-#         self.link = link
-#         self.salary = salary
-#         self.date = published
 def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    page_num = 7
+    page_num = 6
     data_total = []
     try:
         while True: 
@@ -75,21 +64,6 @@ def process_data(): #Splits data into variables and formats it.
                 if published != None:
                     published = published.string
             
-
-            
-        #     jobs.append(Job( #Creates list of jobs with properties
-        #         item.find(
-        #             "a", {"class": "link-primary SearchResultCard__titleLink"}).string,
-        #         item.find(
-        #             "a", {"class": "link-primary SearchResultCard__titleLink"})["href"],
-        #         item.find("li", {"class": "SearchResultCard__footerItem"}).find(
-        #             "span").string,
-        #         salary,
-        #         published
-        #     ))
-
-        # for job in jobs:
-        #     print(job.date)
             job = Job(
                 title = item.find(
                     "a", {"class": "link-primary SearchResultCard__titleLink"}).string,
