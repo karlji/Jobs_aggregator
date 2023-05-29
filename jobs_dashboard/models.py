@@ -9,3 +9,4 @@ class Job(models.Model):
     link = models.CharField(max_length=255, null=True)
     salary = models.CharField(max_length=255, null=True)
     published_date = models.CharField(max_length=255, null=True)
+    unique_id = models.CharField(max_length=255, null=True)

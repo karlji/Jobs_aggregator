@@ -63,18 +63,35 @@ def process_data(): #Splits data into variables and formats it.
                     "div", {"class": "SearchResultCard__status SearchResultCard__status--danger"})
                 if published != None:
                     published = published.string
-            
-            job = Job(
-                title = item.find(
-                    "a", {"class": "link-primary SearchResultCard__titleLink"}).string,
-                company = item.find("li", {"class": "SearchResultCard__footerItem"}).find(
-                    "span").string,
-                link = item.find(
-                    "a", {"class": "link-primary SearchResultCard__titleLink"})["href"],
-                salary = salary_data,
-                published_date = published
-            )
-            job.save()
+            title = item.find(
+                    "a", {"class": "link-primary SearchResultCard__titleLink"}).string
+            company = item.find("li", {"class": "SearchResultCard__footerItem"}).find(
+                    "span").string
+            link = item.find(
+                    "a", {"class": "link-primary SearchResultCard__titleLink"})["href"]
+            unique_id = title.lower().replace(" ", "") + "_" + company.lower().replace(" ", "")
+#TODO: Add flag with date when job was scraped last time. Create another function that will periodically flag old entries as inactive.
+
+            if Job.objects.filter(unique_id=unique_id).exists(): # If job already exists, update DB
+                job = Job.objects.get(unique_id=unique_id)
+                job.title = title
+                job.company = company
+                job.link = link
+                job.salary = salary_data
+                job.published_date = published
+                job.unique_id = unique_id
+                job.save()
+                continue
+            else:   # Add new jobs to DB
+                job = Job(
+                    title = title,
+                    company = company,
+                    link = link,
+                    salary = salary_data,
+                    published_date = published,
+                    unique_id = unique_id
+                )
+                job.save()
     except Exception as e:
         print(f"An error occurred while processing data: {str(e)}")
 
