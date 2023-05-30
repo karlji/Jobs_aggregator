@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
-
+{% load static %}
+<head>
+    <script src="{% static 'support.js' %}"></script>
+</head>
 <body>
-
     <h1>Jobs Overview</h1>
+    <button onclick="window.location.href='./search';">Go Back</button>
     <form action="" method="post">
         {% csrf_token %}
         <label for="my_input"><input type="text" name="my_input" placeholder="Title"></label>
@@ -12,12 +15,12 @@
         <button type="submit">Filter</button>
     </form>
     {% if jobs_total|length > 0 %}
-    <table>
+    <table id="job_table">
         <tr>
-            <th>Title</th>
-            <th>Salary</th>
-            <th>Company</th>
-            <th>Published</th>
+            <th onclick="sortTable(0)">Title</th>
+            <th onclick="sortTable(1)">Salary</th>
+            <th onclick="sortTable(2)">Company</th>
+            <th onclick="sortTable(3)">Published</th>
             <th>URL</th>
         </tr>
         {% for job in jobs_total %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>HOME</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ judge_form }}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
