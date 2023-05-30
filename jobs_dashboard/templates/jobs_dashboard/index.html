@@ -3,7 +3,7 @@
 
 <body>
 
-    <h1>Jobs</h1>
+    <h1>Jobs Overview</h1>
     <form action="" method="post">
         {% csrf_token %}
         <label for="my_input"><input type="text" name="my_input" placeholder="Title"></label>
@@ -11,6 +11,7 @@
         <label for="salary_check">Salary<input type="checkbox" name="salary_check"></label>
         <button type="submit">Filter</button>
     </form>
+    {% if jobs_total|length > 0 %}
     <table>
         <tr>
             <th>Title</th>
@@ -22,7 +23,6 @@
         {% for job in jobs_total %}
         {% if input_text.lower in job.title.lower and junior_check in job.title.lower and salary_check in job.salary %}
         <tr>
-            <td>{{ city_check }}</td>
             <td>{{ job.title }}</td>
             <td>{{ job.salary }}</td>
             <td>{{ job.company }}</td>
@@ -32,6 +32,9 @@
         {% endif %}
         {% endfor %}
     </table>
+    {% else %}
+        <h2>No jobs found. Try it again.</h2>
+    {% endif %}
 
 </body>
 

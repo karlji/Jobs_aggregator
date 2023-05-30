@@ -47,6 +47,7 @@ def index(request):
 
 def search(request):
     template = loader.get_template('jobs_dashboard/search.html')
+    input_text = request.POST.get('my_input', None)
     city_check = request.POST.get('city_check', None)
     context = {
         'city_check': city_check
@@ -56,6 +57,6 @@ def search(request):
         return HttpResponse(template.render(context, request))
     else:
         clean_data()
-        scrape_data()
+        scrape_data(city_check,input_text)
         return redirect('/dashboard/view')
     

@@ -30,10 +30,10 @@ def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
 
     return data_total
 
-def scrape_data(): #Splits data into variables and formats it.
+def scrape_data(city,title): #Splits data into variables and formats it.
     try:
         data = scrape_jobsCZ(
-    "https://beta.www.jobs.cz/prace/praha/?q[0]=sw%20developer&locality[label]=Praha&locality[radius]=0%22&page=")
+    f"https://beta.www.jobs.cz/prace/{city}/?q%5B%5D={title}&locality[radius]=0&page=")
         today = date.today()
 
         for item in data:
