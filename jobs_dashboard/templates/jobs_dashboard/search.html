@@ -6,10 +6,11 @@
     <h1>Jobs</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <label for="my_input"><input type="text" name="my_input" placeholder="Title"></label>
-        <label for="junior_check">Junior<input type="checkbox" name="junior_check"></label>
-        <label for="salary_check">Salary<input type="checkbox" name="salary_check"></label>
-        <button type="submit">Filter</button>
+        <label for="my_input"><input type="text" name="my_input" placeholder="Job Title" required></label>
+        <label for="city_check">Plzeň<input type="radio" name="city_check" value="plzen" checked='checked'></label>
+        <label for="city_check">Praha<input type="radio" name="city_check" value="praha"></label>
+        <label for="city_check">Brno<input type="radio" name="city_check" value="brno"></label>
+        <button type="submit">Scrape Jobs.cz</button>
     </form>
 
 </body>

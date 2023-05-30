@@ -22,6 +22,7 @@
         {% for job in jobs_total %}
         {% if input_text.lower in job.title.lower and junior_check in job.title.lower and salary_check in job.salary %}
         <tr>
+            <td>{{ city_check }}</td>
             <td>{{ job.title }}</td>
             <td>{{ job.salary }}</td>
             <td>{{ job.company }}</td>

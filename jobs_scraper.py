@@ -9,7 +9,7 @@ from jobs_dashboard.models import Job
 
 def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    page_num = 1
+    page_num = 6
     data_total = []
     try:
         while True: 
@@ -30,14 +30,12 @@ def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
 
     return data_total
 
-
-data = scrape_jobsCZ(
-    "https://beta.www.jobs.cz/prace/praha/?q[0]=sw%20developer&locality[label]=Praha&locality[radius]=0%22&page=")
-today = date.today()
-
-
-def process_data(): #Splits data into variables and formats it.
+def scrape_data(): #Splits data into variables and formats it.
     try:
+        data = scrape_jobsCZ(
+    "https://beta.www.jobs.cz/prace/praha/?q[0]=sw%20developer&locality[label]=Praha&locality[radius]=0%22&page=")
+        today = date.today()
+
         for item in data:
             salary_data = item.find(
                 "span", {"class": "Tag Tag--success Tag--small Tag--light"})
@@ -72,30 +70,17 @@ def process_data(): #Splits data into variables and formats it.
             link = item.find(
                     "a", {"class": "link-primary SearchResultCard__titleLink"})["href"]
             unique_id = title.lower().replace(" ", "") + "_" + company.lower().replace(" ", "")
-#TODO: Add flag with date when job was scraped last time. Create another function that will periodically flag old entries as inactive.
-
-            if Job.objects.filter(unique_id=unique_id).exists(): # If job already exists, update DB
-                job = Job.objects.get(unique_id=unique_id)
-                job.title = title
-                job.company = company
-                job.link = link
-                job.salary = salary_data
-                job.published_date = published
-                job.unique_id = unique_id
-                job.save()
-                continue
-            else:   # Add new jobs to DB
-                job = Job(
-                    title = title,
-                    company = company,
-                    link = link,
-                    salary = salary_data,
-                    published_date = published,
-                    unique_id = unique_id
-                )
-                job.save()
+            job = Job(
+                title = title,
+                company = company,
+                link = link,
+                salary = salary_data,
+                published_date = published,
+                unique_id = unique_id
+            )
+            job.save()
     except Exception as e:
         print(f"An error occurred while processing data: {str(e)}")
 
-
-process_data()
+def clean_data():
+    Job.objects.all().delete()
