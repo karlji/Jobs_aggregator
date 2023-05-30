@@ -4,7 +4,13 @@
 <body>
 
     <h1>Jobs</h1>
-
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="my_input"><input type="text" name="my_input" placeholder="Title"></label>
+        <label for="junior_check">Junior<input type="checkbox" name="junior_check"></label>
+        <label for="salary_check">Salary<input type="checkbox" name="salary_check"></label>
+        <button type="submit">Filter</button>
+    </form>
     <table>
         <tr>
             <th>Title</th>
@@ -14,13 +20,15 @@
             <th>URL</th>
         </tr>
         {% for job in jobs_total %}
+        {% if input_text.lower in job.title.lower and junior_check in job.title.lower and salary_check in job.salary %}
         <tr>
             <td>{{ job.title }}</td>
             <td>{{ job.salary }}</td>
             <td>{{ job.company }}</td>
             <td>{{ job.published_date }}</td>
-            <td><a href="{{ job.link }}">URL</a></td>
+            <td><a href="{{ job.link }}" target="_blank">URL</a></td>
         </tr>
+        {% endif %}
         {% endfor %}
     </table>
 

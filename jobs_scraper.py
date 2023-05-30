@@ -9,7 +9,7 @@ from jobs_dashboard.models import Job
 
 def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    page_num = 6
+    page_num = 1
     data_total = []
     try:
         while True: 
@@ -32,7 +32,7 @@ def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
 
 
 data = scrape_jobsCZ(
-    "https://beta.www.jobs.cz/prace/praha/?q[0]=sw%20developer&locality[code]=R200000&locality[label]=Praha&locality[coords]=50.08455,14.41778&locality[radius]=0%22&page=")
+    "https://beta.www.jobs.cz/prace/praha/?q[0]=sw%20developer&locality[label]=Praha&locality[radius]=0%22&page=")
 today = date.today()
 
 
@@ -43,6 +43,8 @@ def process_data(): #Splits data into variables and formats it.
                 "span", {"class": "Tag Tag--success Tag--small Tag--light"})
             if salary_data != None:
                 salary_data = salary_data.string
+            else:
+                salary_data = "N/A"
 
             published = item.find(
                 "div", {"class": "SearchResultCard__status SearchResultCard__status--default"})
