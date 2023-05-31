@@ -5,8 +5,10 @@ from .models import Job
 from jobs_scraper import scrape_data,clean_data
 from django.shortcuts import redirect
 from .forms import JudgesForm
-from .models import JudgeDetail
 from django.contrib.auth import authenticate
+from django.contrib import messages
+from BruteBuster.models import FailedAttempt #BB needs edit to return False in decorators.py when calling fa.too_many_failures():
+from datetime import timedelta
 
 # Create your views here.
 def home_view(request):
@@ -19,8 +21,13 @@ def home_view(request):
             user = judge_form.cleaned_data['username']
             password = judge_form.cleaned_data['password']
             try:
-                auth = authenticate(username=user, password=password)# Try to authenticate user
-                if auth is not None:
+                auth = authenticate(username=user, password=password)# Authenticate is change with BruteBuster lib, which tracks failed login attempts into DB.
+                if auth == False: # when max attempts failed, block user
+                    IP_ADDR = request.META.get('REMOTE_ADDR', None)
+                    fa = FailedAttempt.objects.filter(username=user, IP=IP_ADDR)[0]
+                    block_time = (fa.timestamp + timedelta(minutes=3)).strftime('%H:%M:%S')
+                    messages.info(request, u'%s BLOCKED until %s GMT' % (fa.username,  block_time))
+                if auth != None and auth != False:
                     request.session['judge_password'] = 'valid'
                     return redirect('search')
                 else:
