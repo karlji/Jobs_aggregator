@@ -9,6 +9,13 @@
         {{ judge_form }}
         <input type="submit" value="Submit">
     </form>
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">{{ message }}</span>
+    {% endfor %}
+    </ul>
+{% endif %}
 </body>
 
 </html>
