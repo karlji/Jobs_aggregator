@@ -19,9 +19,8 @@ def home_view(request):
     if (request.method == 'POST'):
         if judge_form.is_valid():
             user = judge_form.cleaned_data['username']
-            password = judge_form.cleaned_data['password']
             try:
-                auth = authenticate(username=user, password=password)# Authenticate is change with BruteBuster lib, which tracks failed login attempts into DB.
+                auth = authenticate(username=user, password=judge_form.cleaned_data['password'])# Authenticate is change with BruteBuster lib, which tracks failed login attempts into DB.
                 if auth == False: # when max attempts failed, block user
                     IP_ADDR = request.META.get('REMOTE_ADDR', None)
                     fa = FailedAttempt.objects.filter(username=user, IP=IP_ADDR)[0]
@@ -29,6 +28,7 @@ def home_view(request):
                     messages.info(request, u'%s BLOCKED until %s GMT' % (fa.username,  block_time))
                 if auth != None and auth != False:
                     request.session['judge_password'] = 'valid'
+                    request.session['user'] = user
                     return redirect('search')
                 else:
                     return redirect('home_view')
@@ -43,8 +43,7 @@ def index(request):
             return redirect('home_view')
     except:
         return redirect('home_view')
-        
-    jobs_total = Job.objects.all().values()
+    jobs_total = Job.objects.filter(user=request.session['user']).values()
     template = loader.get_template('jobs_dashboard/index.html')
     input_text = request.POST.get('my_input', None)
     junior_check = request.POST.get('junior_check', None)
@@ -92,7 +91,7 @@ def search(request):
     if city_check == None: #On first page load render search.html
         return HttpResponse(template.render(context, request))
     else:
-        clean_data()
-        scrape_data(city_check,input_text)
-        return redirect('/dashboard/view')
+        scrape_data(city_check,input_text,request.session['user'])
+        #return redirect('/dashboard/view')
+        return redirect('index')
     

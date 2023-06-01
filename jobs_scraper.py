@@ -30,7 +30,8 @@ def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
 
     return data_total
 
-def scrape_data(city,title): #Splits data into variables and formats it.
+def scrape_data(city,title,user): #Splits data into variables and formats it.
+    clean_data(user)
     try:
         data = scrape_jobsCZ(
     f"https://beta.www.jobs.cz/prace/{city}/?q%5B%5D={title}&locality[radius]=0&page=")
@@ -76,11 +77,12 @@ def scrape_data(city,title): #Splits data into variables and formats it.
                 link = link,
                 salary = salary_data,
                 published_date = published,
-                unique_id = unique_id
+                unique_id = unique_id,
+                user = user
             )
             job.save()
     except Exception as e:
         print(f"An error occurred while processing data: {str(e)}")
 
-def clean_data():
-    Job.objects.all().delete()
+def clean_data(user):
+    Job.objects.filter(user=user,).delete()

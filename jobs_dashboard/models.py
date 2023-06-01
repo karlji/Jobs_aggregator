@@ -13,4 +13,5 @@ class Job(models.Model):
     salary = models.CharField(max_length=255, null=True)
     published_date = models.CharField(max_length=255, null=True)
     unique_id = models.CharField(max_length=255, null=True)
+    user = models.CharField(max_length=255, null=True)
 
