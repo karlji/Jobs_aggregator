@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <body>
-
-    <h1>HOME</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jobs.cz Scraper Login</title>
+        <link rel="stylesheet" href="styles.css" />
+      </head>
+    <h1>Jobs.cz Scraper</h1>
     <form method="post">
         {% csrf_token %}
         {{ judge_form }}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Job
-from jobs_scraper import scrape_data,clean_data
+from .jobs_scraper import scrape_data
 from django.shortcuts import redirect
 from .forms import JudgesForm
 from django.contrib.auth import authenticate
@@ -44,7 +44,7 @@ def index(request):
     except:
         return redirect('home_view')
     jobs_total = Job.objects.filter(user=request.session['user']).values()
-    template = loader.get_template('jobs_dashboard/index.html')
+    template = loader.get_template('index.html')
     input_text = request.POST.get('my_input', None)
     junior_check = request.POST.get('junior_check', None)
     salary_check = request.POST.get('salary_check', None)
@@ -81,7 +81,7 @@ def search(request):
     except:
         return redirect('home_view')
 
-    template = loader.get_template('jobs_dashboard/search.html')
+    template = loader.get_template('search.html')
     input_text = request.POST.get('my_input', None)
     city_check = request.POST.get('city_check', None)
     context = {

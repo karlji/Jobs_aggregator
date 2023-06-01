@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% load static %}
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jobs.cz Scraper</title>
+    <link rel="stylesheet" href="styles.css" />
     <script src="{% static 'support.js' %}"></script>
 </head>
 <body>
@@ -15,8 +19,8 @@
         <button type="submit">Filter</button>
     </form>
     {% if jobs_total|length > 0 %}
-    <table id="job_table">
-        <tr>
+    <table id="job_table" lang="cs">
+        <tr lang="en">
             <th onclick="sortTable(0)">Title</th>
             <th onclick="sortTable(1)">Salary</th>
             <th onclick="sortTable(2)">Company</th>

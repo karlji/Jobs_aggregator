@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import date, timedelta
-from support import parse_czech_date
+from .support import parse_czech_date
 from jobs_dashboard.config import * 
 from jobs_dashboard.models import Job
 
