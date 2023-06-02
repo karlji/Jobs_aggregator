@@ -9,19 +9,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jobs.cz Scraper Search</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}" />
+        <script src="{% static 'support.js' %}"></script>
       </head>
     <body>
         <div class="wrapper_main">
+            <div class="loader"></div>
             <div class="wrapper">
                 <div class="login-wrapper">
                     <h1>Jobs Aggregator</h1>
-                    <form action="" method="post" class="search">
+                    <form action="" method="post" class="search main_form">
                         {% csrf_token %}
                         <label for="my_input"><input type="text" name="my_input" placeholder="Job Title" required></label>
                         <label for="city_check"><input type="radio" id="city_check" name="city_check" value="plzen" checked='checked'><span>Plzeň</span></label>
                         <label for="city_check2"><input type="radio" id="city_check2" name="city_check" value="praha"><span>Praha</span></label>
                         <label for="city_check3"><input type="radio" id="city_check3" name="city_check" value="brno"><span>Brno</span></label>
-                        <input type="submit" value="Scrape Jobs.cz">
+                        <input type="submit" value="Scrape Jobs.cz" onclick="loading()">
                     </form>
                 </div>
             </div>

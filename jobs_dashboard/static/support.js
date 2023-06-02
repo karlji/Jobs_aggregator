@@ -64,3 +64,9 @@ function sortTable(col) {
   }
 
 }
+function loading() {
+  if(document.querySelector(".main_form").checkValidity()){
+    document.querySelector(".loader").classList.toggle("loader_vis")
+  }
+  
+}

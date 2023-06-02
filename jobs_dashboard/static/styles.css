@@ -39,6 +39,7 @@ input[type="text"],input[type="password"]{
     min-height:2em;
     background-color: var(--grey);
     border:none;
+    width: calc(100% - 4px);
 }
 input[type="text"]:focus,input[type="password"]:focus{
     outline:solid 2px var(--primary-color);
@@ -53,6 +54,9 @@ input[type="submit"]{
     border-radius: 7px;
     font-family: 'Orbitron', sans-serif;
     font-weight: 500;
+}
+input[type="submit"]:hover{
+
 }
 .login-wrapper{
     position: relative;
@@ -102,7 +106,6 @@ input[type="submit"]{
     font-size: 2.5rem;
     color:#1e3050;
     text-decoration: none;
-    text-shadow: 2px 2px 5px hsl(0, 1%, 71%);
 }
 .search{
     padding-top:0;
@@ -149,4 +152,29 @@ input[type="submit"]{
     margin-right: 0.375em;
     transition: 0.25s ease;
     box-shadow: inset 0 0 0 0.125em var(--primary-color);
+}
+.loader{
+    position: absolute;
+}
+.loader_vis{
+    animation: spinner 0.5s infinite;
+    animation-delay: 0.1s, 0.5s;
+    animation-fill-mode: forwards;
+    z-index:10;
+    width: 14rem;
+    height: 14rem;
+    border-radius: 100%;
+    border: 5px solid var(--primary-color);
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    color: var(--primary-color);
+    outline: none;
+    cursor: pointer;
+    left:calc((100% - 14rem)/2)
+}
+
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

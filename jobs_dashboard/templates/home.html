@@ -10,10 +10,12 @@
         <title>Jobs.cz Scraper Login</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="{% static 'support.js' %}"></script>
     </head>
     <body>
         <div class="wrapper_main">
             <div class="wrapper">
+                <div class="loader"></div>
                 <div class="desc_wrapper">
                     <h1>Welcome to Jobs Aggregator</h1>
                     <p>This is educational project created by<br>
@@ -25,10 +27,10 @@
                         </div>
                 </div>
                 <div class="login-wrapper">
-                    <form method="post">
+                    <form method="post" class="main_form">
                         {% csrf_token %}
                         {{ judge_form }}
-                        <input type="submit" value="Sign In">
+                        <input type="submit" value="Sign In" onclick="loading()">
                     </form>
                     {% if messages %}
                     <ul class="messages">
