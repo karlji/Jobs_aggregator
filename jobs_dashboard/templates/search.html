@@ -4,24 +4,26 @@
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jobs.cz Scraper Search</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}" />
       </head>
     <body>
-        <div class="wrapper">
-            <div class="login-wrapper">
-                <h1>Jobs Aggregator</h1>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <label for="my_input"><input type="text" name="my_input" placeholder="Job Title" required></label>
-                    <label for="city_check">Plzeň<input type="radio" name="city_check" value="plzen" checked='checked'></label>
-                    <label for="city_check">Praha<input type="radio" name="city_check" value="praha"></label>
-                    <label for="city_check">Brno<input type="radio" name="city_check" value="brno"></label>
-                    <input type="submit" value="Scrape Jobs.cz">
-                </form>
+        <div class="wrapper_main">
+            <div class="wrapper">
+                <div class="login-wrapper">
+                    <h1>Jobs Aggregator</h1>
+                    <form action="" method="post" class="search">
+                        {% csrf_token %}
+                        <label for="my_input"><input type="text" name="my_input" placeholder="Job Title" required></label>
+                        <label for="city_check"><input type="radio" id="city_check" name="city_check" value="plzen" checked='checked'><span>Plzeň</span></label>
+                        <label for="city_check2"><input type="radio" id="city_check2" name="city_check" value="praha"><span>Praha</span></label>
+                        <label for="city_check3"><input type="radio" id="city_check3" name="city_check" value="brno"><span>Brno</span></label>
+                        <input type="submit" value="Scrape Jobs.cz">
+                    </form>
+                </div>
             </div>
         </div>
     </body>

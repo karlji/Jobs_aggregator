@@ -1,82 +1,152 @@
 :root {
-    --black: #0b0c10;
-    --grey: #202833;
-    --light-grey: #c5c6c8;
-    --turq: #66fcf1;
-    --turq-dark: #46a29f;
+    --grey: #e8e7e7;
+    --light-grey: #f6f5f5;
+    --primary-color:#dc3c39;
+    --secondary-color: hsla(1, 70%, 54%, 0.25);
   }
+*,*:after,*:before {
+	box-sizing: border-box;
+}
 body{
-    background-color: var(--grey);
+    background-color: white;
     width:100%;
     height:100vh;
     margin:0;
-    color: var(--turq);
-    font-family: 'Orbitron', sans-serif;
+    color: black;
+    font-family: 'Barlow', sans-serif;
 }
 h1{
     text-align: center;
 }
 form{
-    min-width:50px;
-    max-width:200px;
+    max-width: 150px;
     text-align: center;
+    padding: 2rem 0;
 }
 label{
     margin:0.5rem 0;
+    font-weight: 500;
 }
 
 input,select{
     width:100%;
     margin: 0.5rem auto;
     background-color: var(--grey);
-    color: var(--turq);
+    color: black;
 }
 input[type="text"],input[type="password"]{
     cursor:text;
     min-height:2em;
+    background-color: var(--grey);
+    border:none;
+}
+input[type="text"]:focus,input[type="password"]:focus{
+    outline:solid 2px var(--primary-color);
 }
 input[type="submit"]{
-    margin: 2rem auto;
+    margin: 2rem 0 0 0;
+    border:none;
     cursor:pointer;
-    background-color: var(--grey);
-    border:solid var(--turq) 0.5px;
-    color: var(--turq);
+    background-color: var(--primary-color);
+    color: white;
     padding: 0.75rem 0.5rem;
     border-radius: 7px;
     font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
 }
 .login-wrapper{
     position: relative;
     margin:auto;
-    border-left:solid var(--turq) 2px;
-    border-top:solid var(--turq) 2px;
-    border-right:solid var(--turq-dark) 2px;
-    border-bottom:solid var(--turq-dark) 2px;
-    background-color: var(--black);
+    background-color: white;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
-    min-width: 75px;
-    max-width: 300px;
+    padding: 0.5rem 2rem;
     border-radius: 7px;
+    box-shadow: 2px 2px 5px hsl(0, 1%, 71%);
 }
-.login-wrapper::before{
-    content: "";
-    z-index: -1;
-    width: 104%;
-    height: 104%;
-    background-color: var(--turq-dark);
-    position: absolute;
-    border-radius: 7px;
-    top:5px;
-    left:5px;
-}
-.wrapper{
+.wrapper_main{
     align-items: center;
     display: flex;
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+.wrapper{
+    align-items: center;
+    display: flex;
+    position: relative;
+    width: 75%;
+    max-width: 600px;
+}
+.wrapper::before{
+    position: absolute;
+    content:"";
+    background-color: var(--grey);
+    border-radius: 7px;
+    width: calc(100% + 5rem);
+    height: calc(100% + 5rem);
+    z-index: -1;
+    left:-2.5rem;
+    top:-2.5rem;
+    box-shadow: 2px 2px 5px hsl(0, 1%, 71%);
+}
+.desc_wrapper{
+    padding: 0.5rem 2rem;
+    width: 50%;
+    text-align: center;
+}
+.social a{
+    margin:0.5rem;
+    font-size: 2.5rem;
+    color:#1e3050;
+    text-decoration: none;
+    text-shadow: 2px 2px 5px hsl(0, 1%, 71%);
+}
+.search{
+    padding-top:0;
+}
+.search label{
+    display: flex;
+	cursor: pointer;
+	font-weight: 500;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 0.375em;
+}
+.search input[type="radio"]{
+    display: inline;
+    width: unset;
+    position: absolute;
+    left: -9999px;
+}
+
+.search input[type="radio"]:checked ~ ::before{
+    box-shadow: inset 0 0 0 0.4375em var(--primary-color);
+}
+.search input[type="radio"]:checked ~ span{
+    background-color: var(--secondary-color);
+}
+.search span{
+    display: flex;
+    align-items: center;
+    padding: 0.375em 0.75em 0.375em 0.375em;
+    border-radius: 99em;
+    transition: 0.25s ease;
+}
+.search span:hover{
+   background-color: var(--secondary-color);
+}
+.search span:before{
+    display: flex;
+    flex-shrink: 0;
+    content: "";
+    background-color: #fff;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    margin-right: 0.375em;
+    transition: 0.25s ease;
+    box-shadow: inset 0 0 0 0.125em var(--primary-color);
 }
