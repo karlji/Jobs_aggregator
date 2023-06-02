@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jobs.cz Scraper</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="{% static 'support.js' %}"></script>
-</head>
-<body>
-    <h1>Jobs Overview</h1>
-    <button onclick="window.location.href='./search';">Go Back</button>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="my_input"><input type="text" name="my_input" placeholder="Title"></label>
-        <label for="junior_check">Junior<input type="checkbox" name="junior_check"></label>
-        <label for="salary_check">Salary<input type="checkbox" name="salary_check"></label>
-        <button type="submit">Filter</button>
-    </form>
-    {% if jobs_total|length > 0 %}
-    <table id="job_table" lang="cs">
-        <tr lang="en">
-            <th onclick="sortTable(0)">Title</th>
-            <th onclick="sortTable(1)">Salary</th>
-            <th onclick="sortTable(2)">Company</th>
-            <th onclick="sortTable(3)">Published</th>
-            <th>URL</th>
-        </tr>
-        {% for job in jobs_total %}
-        {% if input_text.lower in job.title.lower and junior_check in job.title.lower and salary_check in job.salary %}
-        <tr>
-            <td>{{ job.title }}</td>
-            <td>{{ job.salary }}</td>
-            <td>{{ job.company }}</td>
-            <td>{{ job.published_date }}</td>
-            <td><a href="{{ job.link }}" target="_blank">URL</a></td>
-        </tr>
+    {% load static %}
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jobs.cz Scraper</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}" />
+        <script src="{% static 'support.js' %}"></script>
+    </head>
+    <body>
+        <h1>Jobs Overview</h1>
+        <button onclick="window.location.href='./search';">Go Back</button>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="my_input"><input type="text" name="my_input" placeholder="Title"></label>
+            <label for="junior_check">Junior<input type="checkbox" name="junior_check"></label>
+            <label for="salary_check">Salary<input type="checkbox" name="salary_check"></label>
+            <button type="submit">Filter</button>
+        </form>
+        {% if jobs_total|length > 0 %}
+        <table id="job_table" lang="cs">
+            <tr lang="en">
+                <th onclick="sortTable(0)">Title</th>
+                <th onclick="sortTable(1)">Salary</th>
+                <th onclick="sortTable(2)">Company</th>
+                <th onclick="sortTable(3)">Published</th>
+                <th>URL</th>
+            </tr>
+            {% for job in jobs_total %}
+            {% if input_text.lower in job.title.lower and junior_check in job.title.lower and salary_check in job.salary %}
+            <tr>
+                <td>{{ job.title }}</td>
+                <td>{{ job.salary }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.published_date }}</td>
+                <td><a href="{{ job.link }}" target="_blank">URL</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        {% else %}
+            <h2>No jobs found. Try it again.</h2>
         {% endif %}
-        {% endfor %}
-    </table>
-    {% else %}
-        <h2>No jobs found. Try it again.</h2>
-    {% endif %}
 
-</body>
+    </body>
 
 </html>
