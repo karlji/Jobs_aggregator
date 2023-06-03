@@ -10,6 +10,7 @@
         <title>Jobs.cz Scraper Search</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}" />
         <script src="{% static 'support.js' %}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       </head>
     <body>
         <div class="wrapper_main">
@@ -20,10 +21,11 @@
                     <form action="" method="post" class="search main_form">
                         {% csrf_token %}
                         <label for="my_input"><input type="text" name="my_input" placeholder="Job Title" required></label>
-                        <label for="city_check"><input type="radio" id="city_check" name="city_check" value="plzen" checked='checked'><span>Plzeň</span></label>
-                        <label for="city_check2"><input type="radio" id="city_check2" name="city_check" value="praha"><span>Praha</span></label>
-                        <label for="city_check3"><input type="radio" id="city_check3" name="city_check" value="brno"><span>Brno</span></label>
-                        <input type="submit" value="Scrape Jobs.cz" onclick="loading()">
+                        <label for="city_check"><input type="radio" id="city_check" name="city_check" value="plzen" checked='checked'><span class="radio_span">Plzeň</span></label>
+                        <label for="city_check2"><input type="radio" id="city_check2" name="city_check" value="praha"><span class="radio_span">Praha</span></label>
+                        <label for="city_check3"><input type="radio" id="city_check3" name="city_check" value="brno"><span class="radio_span">Brno</span></label>
+                        <!-- <input type="submit" value="Scrape Jobs.cz" onclick="loading()"> -->
+                        <button type="submit" onclick="loading()" ><span id="scrape_button">Scrape Jobs.cz</span></button>
                     </form>
                 </div>
             </div>

@@ -70,3 +70,9 @@ function loading() {
   }
   
 }
+function loading_check() {
+  let element = document.querySelector(".loader_vis");
+  if( element != null){
+    element.classList.remove("loader_vis");
+  }
+}
