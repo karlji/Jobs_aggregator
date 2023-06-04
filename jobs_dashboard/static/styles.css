@@ -47,7 +47,7 @@ input[type="text"]:focus,input[type="password"]:focus{
 input[type="text"]:hover,input[type="password"]:hover{
     background-color:var(--secondary-color);
 }
-button[type="submit"]{
+button{
     width:100%;
     border:none;
     cursor:pointer;
@@ -61,10 +61,10 @@ button[type="submit"]{
     margin: 0.5rem auto;
     transition: all 0.2s linear 0s;
 }
-button[type="submit"]:hover{
+button:hover{
     text-indent: 30px;
 }
-button[type="submit"]::before{
+button::before{
     content: "\f054";
     font-family: FontAwesome;
     display: flex;
@@ -73,7 +73,7 @@ button[type="submit"]::before{
     position: absolute;
     top: 0;
     left: 0px;
-    height: 100%;
+    height: calc(100% + 1px); /*1px added to remove glitching bottom line*/
     width: 30px;
     transform: scale(0,1);
     transform-origin: left center;
@@ -82,12 +82,19 @@ button[type="submit"]::before{
     background-color:white;
     color:var(--primary-color);
 }
-button[type="submit"]:hover:before{
+button:hover:before{
     transform: scale(1,1);
     text-indent: 0;
 }
-
-
+.go_back{
+    max-width: 100px;
+}
+.go_back:before{
+   content:"\f053";
+}
+.filter:before{
+    content:"\f0b0";
+ }
 .login-wrapper{
     position: relative;
     margin:auto;
@@ -145,20 +152,20 @@ button[type="submit"]:hover:before{
 	cursor: pointer;
 	font-weight: 500;
 	position: relative;
-	overflow: hidden;
 	margin-bottom: 0.375em;
 }
-.search input[type="radio"]{
+.search input[type="radio"],.search input[type="checkbox"]{
     display: inline;
     width: unset;
     position: absolute;
     left: -9999px;
 }
 
-.search input[type="radio"]:checked ~ ::before{
+.search input:checked ~ ::before{
     box-shadow: inset 0 0 0 0.4375em var(--primary-color);
 }
-.search input[type="radio"]:checked ~ span{
+
+.search input:checked :checked ~ span{
     background-color: var(--secondary-color);
 }
 .radio_span{
@@ -200,11 +207,81 @@ button[type="submit"]:hover:before{
     color: var(--primary-color);
     outline: none;
     cursor: pointer;
-    left:calc((100% - 14rem)/2)
+    left:calc((100% - 14rem)/2);
 }
 
 
 @keyframes spinner {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.view_form{
+    display: flex;
+    max-width: 500px;
+    padding: 0;
+}
+.view_form button{
+    max-width: 100px;
+}
+.view{
+    height: unset;
+}
+.view_wrapper{
+    max-width: 1400px;
+    width: 100%;
+}
+.table_wrapper{
+    overflow-x:auto;
+}
+@media screen and (max-width: 650px) {
+    .wrapper{
+        width: 100%;
+        flex-direction: column;
+    }
+    .desc_wrapper{
+        padding:0 0 1rem 0;
+    }
+    .loader_vis{
+        top:calc((100% - 14rem)/2)
+    }
+}
+th{
+    cursor:pointer;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    transition: all 0.2s linear 0s;
+    position: relative;
+}
+
+th::before{
+    content: "\f0dc";
+    font-family: FontAwesome;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    height: calc(100% + 1px); /*1px added to remove glitching bottom line*/
+    width: 30px;
+    transform: scale(0,1);
+    transform-origin: left center;
+    transition: all 0.2s linear 0s;
+    z-index: 5;
+    background-color:white;
+    color:var(--primary-color);
+}
+th:hover:before{
+    transform: scale(1,1);
+    text-indent: 0;
+}
+tr:nth-child(2n+3) {
+    background: var(--grey)}
+td {
+    padding:1rem 1rem 1rem 0;
+    }
+td:first-child{
+    font-weight: 500;
 }
