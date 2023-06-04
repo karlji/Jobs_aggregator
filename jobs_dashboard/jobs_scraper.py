@@ -1,18 +1,22 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from datetime import date, timedelta
 from .support import parse_czech_date
-from jobs_dashboard.config import * 
 from jobs_dashboard.models import Job
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+
 def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome(options=chrome_options)
     page_num = 1
     data_total = []
     try:
-        while True: 
+        while True:
+            headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"}
+            driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": headers["User-Agent"]})
             driver.get(URL + str(page_num))
             page = driver.page_source
             soup = BeautifulSoup(page, "html.parser")
@@ -31,6 +35,7 @@ def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
     return data_total
 
 def scrape_data(city,title,user): #Splits data into variables and formats it.
+    print("scrape called")
     clean_data(user)
     try:
         data = scrape_jobsCZ(
@@ -47,16 +52,16 @@ def scrape_data(city,title,user): #Splits data into variables and formats it.
 
             published = item.find(
                 "div", {"class": "SearchResultCard__status SearchResultCard__status--default"})
-            
+
             if published != None: # Formats published dates for consistency
                 published = published.string
                 if "včera" in published:
                     published = today - timedelta(days=1)
-                    published = published.strftime("%#d.%#m.")    
+                    published = published.strftime("%#d.%#m.")
                 elif "Přidáno" in published:
                     published = today.strftime("%#d.%#m.")
                 elif "Aktualizováno" in published:
-                    published = "Aktualizováno " + today.strftime("%#d.%#m.")  
+                    published = "Aktualizováno " + today.strftime("%#d.%#m.")
                 else:
                     published = parse_czech_date(published) # Converts czech months into numerical date
             else:
@@ -85,4 +90,7 @@ def scrape_data(city,title,user): #Splits data into variables and formats it.
         print(f"An error occurred while processing data: {str(e)}")
 
 def clean_data(user):
-    Job.objects.filter(user=user,).delete()
+    try:
+        Job.objects.filter(user=user,).delete()
+    except:
+        print("No data to delete")
