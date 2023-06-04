@@ -9,7 +9,7 @@ from jobs_dashboard.models import Job
 
 def scrape_jobsCZ(URL): # Scrapes data from all URL subpages
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    page_num = 6
+    page_num = 1
     data_total = []
     try:
         while True: 
